@@ -6,7 +6,7 @@ Base = declarative_base()
 
 class ProductModel(Base):
     """Data model example."""
-    __tablename__ = "example_table"
+    __tablename__ = "product_model"
     __table_args__ = {"schema": "example"}
 
     id = Column(
