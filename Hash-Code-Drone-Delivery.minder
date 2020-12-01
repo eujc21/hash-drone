@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<minder version="1.11.3">
+  <theme name="dark" label="Dark" index="-1"/>
+  <styles>
+    <style level="0" isset="false" branchmargin="100" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="rounded" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="10" nodepadding="10" nodefont="Sans 11" nodemarkup="true" connectiondash="dotted" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+    <style level="1" isset="false" branchmargin="100" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true" connectiondash="dotted" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+    <style level="2" isset="false" branchmargin="100" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true" connectiondash="dotted" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+    <style level="3" isset="false" branchmargin="100" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true" connectiondash="dotted" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+    <style level="4" isset="false" branchmargin="100" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true" connectiondash="dotted" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+    <style level="5" isset="false" branchmargin="100" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true" connectiondash="dotted" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+    <style level="6" isset="false" branchmargin="100" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true" connectiondash="dotted" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+    <style level="7" isset="false" branchmargin="100" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true" connectiondash="dotted" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+    <style level="8" isset="false" branchmargin="100" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true" connectiondash="dotted" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+    <style level="9" isset="false" branchmargin="100" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true" connectiondash="dotted" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+    <style level="10" isset="false" branchmargin="100" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true" connectiondash="dotted" connectionlwidth="2" connectionarrow="fromto" connectionpadding="3" connectionfont="Sans 10" connectiontwidth="100"/>
+  </styles>
+  <drawarea x="0" y="0" scale="1"/>
+  <images/>
+  <nodes>
+    <node id="0" posx="930" posy="510" width="227" height="46" side="right" fold="false" treesize="348" layout="Horizontal" group="false">
+      <style branchmargin="100" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+      <nodename posx="944" posy="524" maxwidth="200">
+        <text data="Hash Code: Drone Delivery"/>
+      </nodename>
+      <nodenote></nodenote>
+      <nodes>
+        <node id="1" posx="1257" posy="400" width="73" height="46" side="right" fold="false" treesize="128" color="#c6262e" colorroot="false" layout="Horizontal" group="false">
+          <style branchmargin="100" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+          <nodename posx="1271" posy="414" maxwidth="200">
+            <text data="Macro"/>
+          </nodename>
+          <nodenote></nodenote>
+          <nodes>
+            <node id="2" posx="1430" posy="359" width="193" height="64" side="right" fold="false" treesize="64" color="#c6262e" colorroot="false" layout="Horizontal" group="false">
+              <style branchmargin="100" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+              <nodename posx="1444" posy="373" maxwidth="200">
+                <text data="Balanced Farms Triage Delivery System"/>
+              </nodename>
+              <nodenote></nodenote>
+            </node>
+            <node id="3" posx="1430" posy="423" width="182" height="64" side="right" fold="false" treesize="64" color="#c6262e" colorroot="false" layout="Horizontal" group="false">
+              <style branchmargin="100" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+              <nodename posx="1444" posy="437" maxwidth="200">
+                <text data="Machine Learning for logistics"/>
+              </nodename>
+              <nodenote></nodenote>
+            </node>
+          </nodes>
+        </node>
+        <node id="4" posx="1257" posy="574" width="68" height="46" side="right" fold="false" treesize="220" color="#f37329" colorroot="false" layout="Horizontal" group="false">
+          <style branchmargin="100" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+          <nodename posx="1271" posy="588" maxwidth="200">
+            <text data="Micro"/>
+          </nodename>
+          <nodenote></nodenote>
+          <nodes>
+            <node id="5" posx="1425" posy="487" width="132" height="46" side="right" fold="false" treesize="46" color="#f37329" colorroot="false" layout="Horizontal" group="false">
+              <style branchmargin="100" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+              <nodename posx="1439" posy="501" maxwidth="200">
+                <text data="Pass the class"/>
+              </nodename>
+              <nodenote></nodenote>
+            </node>
+            <node id="6" posx="1425" posy="533" width="197" height="46" side="right" fold="false" treesize="46" color="#f37329" colorroot="false" layout="Horizontal" group="false">
+              <style branchmargin="100" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+              <nodename posx="1439" posy="547" maxwidth="200">
+                <text data="Can learn more python"/>
+              </nodename>
+              <nodenote></nodenote>
+            </node>
+            <node id="7" posx="1425" posy="579" width="219" height="64" side="right" fold="false" treesize="64" color="#f37329" colorroot="false" layout="Horizontal" group="false">
+              <style branchmargin="100" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+              <nodename posx="1439" posy="593" maxwidth="200">
+                <text data="Can get more engineering friends"/>
+              </nodename>
+              <nodenote></nodenote>
+            </node>
+            <node id="8" posx="1425" posy="643" width="200" height="64" side="right" fold="false" treesize="64" color="#f37329" colorroot="false" layout="Horizontal" group="false">
+              <style branchmargin="100" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+              <nodename posx="1439" posy="657" maxwidth="200">
+                <text data="Learn SVM Soft Margin and Reinforced Training"/>
+              </nodename>
+              <nodenote></nodenote>
+            </node>
+          </nodes>
+        </node>
+      </nodes>
+    </node>
+    <node id="9" posx="1430" posy="497" width="28" height="45" side="right" fold="false" treesize="45" layout="Horizontal" group="false">
+      <style branchmargin="100" linktype="straight" linkwidth="4" linkarrow="false" linkdash="solid" nodeborder="underlined" nodewidth="200" nodeborderwidth="4" nodefill="false" nodemargin="8" nodepadding="6" nodefont="Sans 11" nodemarkup="true"/>
+      <nodename posx="1444" posy="511" maxwidth="200">
+        <text data=""/>
+      </nodename>
+      <nodenote></nodenote>
+    </node>
+  </nodes>
+  <groups/>
+  <stickers/>
+</minder>
