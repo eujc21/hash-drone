@@ -38,6 +38,8 @@ class HashDatabse:
             print("Error occured during Table creation!")
             print(e)
 
+
+
     def execute_query(self, query=''):
         if query == '': return
         print(query)

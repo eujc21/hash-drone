@@ -1,8 +1,10 @@
 from database import hash_database
 from models import product_model
 from sqlalchemy.orm import sessionmaker
+import os
 
 def main():
+    os.remove('./hash.sqlite')
     dbms = hash_database.HashDatabse(hash_database.SQLITE, dbname='hash.sqlite')
     dbms.create_db_tables()
     Session = sessionmaker(bind=dbms.db_engine)
