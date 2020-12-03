@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import numpy as np
+from collections import Counter
 
 def read_file(input_file):
     with open(input_file) as f:
@@ -21,7 +22,13 @@ def read_file(input_file):
             x, y = map(int, f.readline().split(" "))
             num_products_in_wh = list(map(int, f.readline().split(" ")))
             assert num_products == len(num_products_in_wh)
-            wh_products = [{p["id"]: n} for p, n in zip(products, num_products_in_wh)]
+            wh_products = [
+                {
+                    "product_"+str(p["id"])+"_qty": n,
+                    "weight":p["weight"] ,
+                    "warehouse_id":i
+                } for p, n in zip(products, num_products_in_wh)
+            ]
             wh = {"id":i, "position":{"x":x,"y":y}, "products": wh_products}
             wh_list.append(wh)
 
@@ -35,14 +42,13 @@ def read_file(input_file):
             order_products = list(map(int, f.readline().split(" ")))
             assert num_products_in_order == len(order_products)
             order_products = [products[x] for x in order_products]
-            print(order_products)
             order = {
                 "id":i, "position":{"x":x,"y":y}, "products": order_products, "isDelivered": False
             }
             order_list.append(order)
     return num_rows, num_columns, num_drones, max_time, max_cargo, products, wh_list, order_list
 
-num_rows, num_columns, num_drones, max_time, max_cargo, products, wh_list, order_list = read_file('./busy_day.in')
+num_rows, num_columns, num_drones, max_time, max_cargo, products, wh_list, order_list = read_file('./assets/busy_day.in')
 
-print(wh_list[1]["products"][3])
+print(products)
 
