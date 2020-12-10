@@ -3,8 +3,8 @@ from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
-class OrderModel(Base):
-    __tablename__ = "orders"
+class WarehouseModel(Base):
+    __tablename__ = "warehouses"
     __table_args__ = {"schema": "main"}
 
     id = Column(
@@ -12,6 +12,12 @@ class OrderModel(Base):
         primary_key=True,
         nullable=False
     )
+    
+    warehouse_id = Column(
+        Integer,
+        nullable=False
+    )
+    
     dlx = Column(
         Integer,
         nullable=False
@@ -22,13 +28,5 @@ class OrderModel(Base):
         nullable=False
     )
     
-    isDelivered = Column(
-        Boolean,
-        nullable=False
-    )
-    
     def __repr__(self):
-        return '<Order model {}>'.format(self.id)
-
-    def getId(self):
-        return self.id
+        return '<WareHouse model {}>'.format(self.id)

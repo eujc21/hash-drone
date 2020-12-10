@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 from sqlalchemy import Table,MetaData, Column, Integer, String, Text, DateTime, Float, Boolean, PickleType, ForeignKey
-from models import product_model, order_model
+from models import product_model, order_model, warehouse_model
 
 
 SQLITE = 'sqlite'
@@ -10,6 +10,8 @@ SQLITE = 'sqlite'
 PRODUCTS = 'products'
 ORDERS = 'orders'
 ORDERPRODUCTS = 'order_products'
+WAREHOUSES = 'warehouses'
+WAREHOUSEPRODUCTS = 'warehouse_products'
 
 
 
@@ -46,8 +48,22 @@ class HashDatabse:
         order_product = Table(
             ORDERPRODUCTS, metadata,
             Column('id', Integer, primary_key=True, nullable=False),
-            Column('product_id', Integer, ForeignKey(product_model.ProductModel.id), nullable=False),
+            Column('product_id', Integer, ForeignKey(product_model.ProductModel.product_id), nullable=False),
             Column('order_id', Integer, ForeignKey(order_model.OrderModel.id), nullable=False),
+            Column('qty', Integer, nullable=False)
+        )
+        warehouses = Table(
+            WAREHOUSES, metadata,
+            Column('id', Integer, primary_key=True, nullable=False),
+            Column('warehouse_id', Integer, ForeignKey(product_model.ProductModel.product_id), nullable=False),
+            Column('dlx', Integer, nullable=False),
+            Column('dly', Integer, nullable=False)
+        )
+        warehouse_products = Table(
+            WAREHOUSEPRODUCTS, metadata,
+            Column('id', Integer, primary_key=True, nullable=False),
+            Column('product_id', Integer, ForeignKey(product_model.ProductModel.product_id), nullable=False),
+            Column('warehouse_id', Integer, ForeignKey(warehouse_model.WarehouseModel.warehouse_id), nullable=False),
             Column('qty', Integer, nullable=False)
         )
         try:

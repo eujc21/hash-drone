@@ -37,6 +37,8 @@ pip install
 └── views
 ```
 
+[Greedy Solution](https://www.kaggle.com/egrehbbt/greedy-solution-post-processing)
+
 [Beginners Guide to SQLALchemy In Python For Database Operations](https://analyticsindiamag.com/beginners-guide-to-sqlalchemy-in-python-for-database-operations/)
 
 [An Introduction To Venv](http://cewing.github.io/training.python_web/html/presentations/venv_intro.html)

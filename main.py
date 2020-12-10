@@ -1,17 +1,16 @@
 from database import hash_database
-from models import product_model, order_model, order_product_model
+from models import product_model, order_model, order_product_model, warehouse_model, warehouse_product_model
 from sqlalchemy.orm import sessionmaker
 import os
 from util.seeder import read_file
 
 
 def setupDB():
-    num_rows, num_columns, num_drones, max_time, max_cargo, products, wh_list, order_list, order_product = read_file('./assets/busy_day.in')
+    num_rows, num_columns, num_drones, max_time, max_cargo, products, wh_list, order_list, order_product, wh_products = read_file('./assets/busy_day.in')
     dbms = hash_database.HashDatabse(hash_database.SQLITE, dbname='hash.sqlite')
     dbms.create_db_tables()
     Session = sessionmaker(bind=dbms.db_engine)
     session = Session()
-    print(order_product)
     for product in products:
         session.add(product_model.ProductModel(**product))
     for order in order_list:
@@ -31,8 +30,14 @@ def setupDB():
                     }
                 )
             )
+    for warehouse in wh_list:
+        session.add(warehouse_model.WarehouseModel(**warehouse))
+
+    for wh_product in wh_products:
+        session.add(warehouse_product_model.WarehouseProductModel(**wh_product))
     session.commit()
-    # print(wh_list[0])
+
+    
 
 def simulation():
     return False

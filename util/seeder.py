@@ -21,18 +21,20 @@ def read_file(input_file):
         # warehouses
         num_warehouses = int(f.readline())
         wh_list = []
+        warehouse_products = []
         for i in range(num_warehouses):
             x, y = map(int, f.readline().split(" "))
             num_products_in_wh = list(map(int, f.readline().split(" ")))
             assert num_products == len(num_products_in_wh)
             wh_products = [
-                {
-                    "product_"+str(p["product_id"])+"_qty": n,
-                    "weight":p["product_weight"] ,
+                {   
+                    "product_id":p["product_id"],
+                    "qty": n,
                     "warehouse_id":i
                 } for p, n in zip(products, num_products_in_wh)
             ]
-            wh = {"id":i, "position":{"x":x,"y":y}, "products": wh_products}
+            wh = {"warehouse_id":i, "dlx":x, "dly":y}
+            warehouse_products.append(wh_products)
             wh_list.append(wh)
 
         # order info
@@ -56,4 +58,4 @@ def read_file(input_file):
             }
             order_product.append({"order_id":order["id"], "items":counts})
             order_list.append(order)
-    return num_rows, num_columns, num_drones, max_time, max_cargo, products, wh_list, order_list, order_product
+    return num_rows, num_columns, num_drones, max_time, max_cargo, products, wh_list, order_list, order_product, wh_products

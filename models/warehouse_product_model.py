@@ -1,11 +1,11 @@
 from sqlalchemy import Column, Integer, String, Text, DateTime, Float, Boolean, PickleType, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
-from . import product_model, order_model
+from . import product_model, warehouse_model
 
 Base = declarative_base()
 
-class OrderProductModel(Base):
-    __tablename__ = "order_products"
+class WarehouseProductModel(Base):
+    __tablename__ = "warehouse_products"
     __table_args__ = {"schema": "main"}
 
     id = Column(
@@ -19,9 +19,9 @@ class OrderProductModel(Base):
         nullable=False
     )
     
-    order_id = Column(
+    warehouse_id = Column(
         Integer,
-        ForeignKey(order_model.OrderModel.id),
+        ForeignKey(warehouse_model.WarehouseModel.warehouse_id),
         nullable=False
     )
     
