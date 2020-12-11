@@ -3,10 +3,8 @@ from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
-
-class ProductModel(Base):
-    """Data model example."""
-    __tablename__ = "products"
+class WarehouseModel(Base):
+    __tablename__ = "warehouses"
     __table_args__ = {"schema": "main"}
 
     id = Column(
@@ -15,15 +13,20 @@ class ProductModel(Base):
         nullable=False
     )
     
-    product_id = Column(
-        String(100),
+    warehouse_id = Column(
+        Integer,
         nullable=False
     )
     
-    product_weight = Column(
-        Float,
+    dlx = Column(
+        Integer,
+        nullable=False
+    )
+    
+    dly = Column(
+        Integer,
         nullable=False
     )
     
     def __repr__(self):
-        return '<Product model {}>'.format(self.id)
+        return '<WareHouse model {}>'.format(self.id)
