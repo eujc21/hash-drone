@@ -1,6 +1,6 @@
 from database import hash_database
 from models import product_model, order_model, order_product_model, warehouse_model, warehouse_product_model
-from controllers import OrderController, SVMController
+from controllers import OrderController, SVMController, WarehouseController
 from sqlalchemy.orm import sessionmaker
 import os
 from util.seeder import read_file
@@ -40,8 +40,11 @@ def setupDB():
 
     
 def trainsvm():
-    values = SVMController.getSVMTable()
-    print(values)
+    for wh in WarehouseController.getWarehouses():
+        print(WarehouseController.getWHLocation(wh))
+        values = SVMController.getSVMTable()
+        for value in values:
+            print(value)
     return False
 
 def simulation():
