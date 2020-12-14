@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import select
 
 def getWarehouses():
-    dbms = hash_database.HashDatabse(hash_database.SQLITE, dbname='hash.sqlite')
+    dbms = hash_database.HashDataBase(hash_database.SQLITE, dbname='hash.sqlite')
     Session = sessionmaker(bind=dbms.db_engine)
     session = Session()
     warehouse_list = []
@@ -13,7 +13,7 @@ def getWarehouses():
     return warehouse_list
 
 def getWHLocation(id=0):
-    dbms = hash_database.HashDatabse(hash_database.SQLITE, dbname='hash.sqlite')
+    dbms = hash_database.HashDataBase(hash_database.SQLITE, dbname='hash.sqlite')
     Session = sessionmaker(bind=dbms.db_engine)
     session = Session()
     location = session.\

@@ -33,8 +33,8 @@ def read_file(input_file):
                     "warehouse_id":i
                 } for p, n in zip(products, num_products_in_wh)
             ]
-            wh = {"warehouse_id":i, "dlx":x, "dly":y}
             warehouse_products.append(wh_products)
+            wh = {"warehouse_id":i, "dlx":x, "dly":y}
             wh_list.append(wh)
 
         # order info

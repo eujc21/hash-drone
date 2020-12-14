@@ -11,6 +11,7 @@ class OrderModel(Base):
         Integer,
         primary_key=True,
         nullable=False
+    
     )
     dlx = Column(
         Integer,

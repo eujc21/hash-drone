@@ -15,7 +15,7 @@ WAREHOUSEPRODUCTS = 'warehouse_products'
 
 
 
-class HashDatabse:
+class HashDataBase:
     DB_ENGINE = {
         SQLITE: 'sqlite:///{DB}'
     }
