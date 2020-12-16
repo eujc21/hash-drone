@@ -16,10 +16,9 @@ def getSVMTable():
             order = session.query(OrderModel).filter(OrderModel.id == order_id).first()
             obj["order_location_x"] = order.dlx
             obj["order_location_y"] = order.dly
-
-            for item in session.query(OrderProductModel).\
-                filter(OrderProductModel.order_id == order_id).\
-                all():
-                obj["product_"+str(item.id)+"_qty"] = item.qty,
+            results = session.query(OrderProductModel).filter(OrderProductModel.order_id == order_id).all()
+            for result in results:
+                qty = result.getQty()
+                obj["product_"+str(result.id)+"_qty"] = qty
         svmtable.append(obj)
     return svmtable

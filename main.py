@@ -42,8 +42,8 @@ def trainsvm():
     group_value = []
     for value in values:
         print(values)
-    for wh in WarehouseController.getWarehouses():
-        print(WarehouseController.getWHLocation(wh))
+    #for wh in WarehouseController.getWarehouses():
+#        print(WarehouseController.getWHLocation(wh))
     return False
 
 def simulation():

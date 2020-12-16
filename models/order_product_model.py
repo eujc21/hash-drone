@@ -40,5 +40,5 @@ class OrderProductModel(Base):
     def __repr__(self):
         return '<OrderProduct model {}>'.format(self.id)
 
-#    def getValue(self, key):
-#        return self[key]
+    def getQty(self):
+        return self.qty
