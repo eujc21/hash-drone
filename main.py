@@ -1,12 +1,13 @@
+import os
 from database import hash_database
 from models import ProductModel, OrderModel,OrderProductModel, WarehouseModel, WarehouseProductModel
-from controllers import OrderController, SVMController, WarehouseController
+from controllers import OrderController, SVMController, WarehouseController, WarehouseProductController
 from sqlalchemy.orm import sessionmaker
-import os
 from util.seeder import read_file
+import pandas as pd
 
 def setupDB():
-    num_rows, num_columns, num_drones, max_time, max_cargo, products, wh_list, order_list, order_product, wh_products = read_file('./assets/busy_day.in')
+    num_rows, num_columns, num_drones, max_time, max_cargo, products, wh_list, order_list, order_product, warehouse_products = read_file('./assets/busy_day.in')
     dbms = hash_database.HashDataBase(hash_database.SQLITE, dbname='hash.sqlite')
     dbms.create_db_tables()
     Session = sessionmaker(bind=dbms.db_engine)
@@ -32,18 +33,23 @@ def setupDB():
     for warehouse in wh_list:
         session.add(WarehouseModel(**warehouse))
 
-    for wh_product in wh_products:
-        session.add(WarehouseProductModel(**wh_product))
+    for wh_product in warehouse_products:
+        for wh_pr in wh_product:
+            session.add(WarehouseProductModel(**wh_pr))
     session.commit()
 
     
 def trainsvm():
-    values = SVMController.getSVMTable()
-    group_value = []
-    for value in values:
-        print(values)
-    #for wh in WarehouseController.getWarehouses():
-#        print(WarehouseController.getWHLocation(wh))
+    warehouses = WarehouseController.getWarehouses()
+    for warehouse_id in warehouses:
+        svmTable = SVMController.getSVMTable(warehouse_id)
+        group_value = []
+        for value in svmTable:
+            group_value.append(value)
+        df = pd.DataFrame(group_value)
+        df.fillna(0, inplace=True)
+        gfg_csv_data = df.to_csv('./assets/warehouse_'+str(warehouse_id)+'.csv', index = True) 
+        print('\nCSV String:\n', gfg_csv_data) 
     return False
 
 def simulation():
@@ -52,10 +58,6 @@ def simulation():
 def main():
     if os.path.exists('./hash.sqlite'):
         os.remove('./hash.sqlite')
-    else:
-        print("Can not delete the file as it doesn't exists")
-    if os.path.exists('./text.txt'):
-        os.remove('./text.txt')
     else:
         print("Can not delete the file as it doesn't exists")
     setupDB()
