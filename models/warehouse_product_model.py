@@ -31,4 +31,7 @@ class WarehouseProductModel(Base):
     )
     
     def __repr__(self):
-        return '<OrderProduct model {}>'.format(self.id)
+        return '<WareHouseProduct model {}>'.format(self.id)
+    
+    def getQty(self):
+        return self.qty

@@ -15,7 +15,7 @@ WAREHOUSEPRODUCTS = 'warehouse_products'
 
 
 
-class HashDatabse:
+class HashDataBase:
     DB_ENGINE = {
         SQLITE: 'sqlite:///{DB}'
     }
@@ -26,7 +26,6 @@ class HashDatabse:
         if dbtype in self.DB_ENGINE.keys():
             engine_url = self.DB_ENGINE[dbtype].format(DB=dbname)
             self.db_engine = create_engine(engine_url)
-            print(self.db_engine)
         else:
             print("DBType is not found in DB_ENGINE")
 

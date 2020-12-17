@@ -8,6 +8,8 @@ node_modules/
 dist/
 .vscode/
 code-base/
+.ipynb*
+
 # Compiled Java class files
 *.class
 
@@ -16,6 +18,7 @@ code-base/
 
 # Log files
 *.log
+*.csv
 
 # Package files
 *.jar
@@ -48,4 +51,5 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
-
+.bitbucketpass
+*.ipynb

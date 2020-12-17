@@ -12,28 +12,28 @@ pip install
 
 ```bash
 ├── assets
-│   ├── busy_day.in
-│   ├── hashcode_delivery_instructions.pdf
-│   ├── Hash-Code-Drone-Delivery.minder
-│   └── hashcode-drone-delivery.zip
+│   ├── busy_day.in
+│   ├── hashcode_delivery_instructions.pdf
+│   ├── Hash-Code-Drone-Delivery.minder
+│   └── hashcode-drone-delivery.zip
 ├── controllers
 ├── database
-│   ├── hash_database.py
-│   └── __pycache__
-│       └── hash_database.cpython-38.pyc
+│   ├── hash_database.py
+│   └── __pycache__
+│       └── hash_database.cpython-38.pyc
 ├── hash.sqlite
 ├── main.py
 ├── models
-│   ├── __init__.py
-│   ├── order_model.py
-│   ├── product_model.py
-│   └── __pycache__
-│       ├── __init__.cpython-38.pyc
-│       └── product_model.cpython-38.pyc
+│   ├── __init__.py
+│   ├── order_model.py
+│   ├── product_model.py
+│   └── __pycache__
+│       ├── __init__.cpython-38.pyc
+│       └── product_model.cpython-38.pyc
 ├── README.md
 ├── requirements.txt
 ├── util
-│   └── seeder.py
+│   └── seeder.py
 └── views
 ```
 

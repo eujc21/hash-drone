@@ -14,16 +14,14 @@ class ProductModel(Base):
         primary_key=True,
         nullable=False
     )
-    
     product_id = Column(
         String(100),
         nullable=False
     )
-    
     product_weight = Column(
         Float,
         nullable=False
     )
-    
+
     def __repr__(self):
         return '<Product model {}>'.format(self.id)

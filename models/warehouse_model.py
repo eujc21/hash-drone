@@ -12,12 +12,12 @@ class WarehouseModel(Base):
         primary_key=True,
         nullable=False
     )
-    
+
     warehouse_id = Column(
         Integer,
         nullable=False
     )
-    
+
     dlx = Column(
         Integer,
         nullable=False
@@ -29,4 +29,10 @@ class WarehouseModel(Base):
     )
     
     def __repr__(self):
-        return '<WareHouse model {}>'.format(self.id)
+        return '<Warehouse model {}>'.format(self.id)
+    
+    def getWarehouseId(self):
+        return self.warehouse_id
+
+    def getWarehouseLocation(self):
+        return {"wh_location_x":self.dlx, "wh_location_y":self.dly}
