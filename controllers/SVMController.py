@@ -5,6 +5,8 @@ from util import distance
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import select, func
 from sqlalchemy.sql import label
+import pandas as pd
+from functools import reduce
 
 def getSVMTable(warehouse_id):
     dbms = hash_database.HashDataBase(hash_database.SQLITE, dbname='hash.sqlite')
@@ -24,16 +26,21 @@ def getSVMTable(warehouse_id):
             order_results = session.query(OrderProductModel).filter(OrderProductModel.order_id == order_id).all()
             # order_results = session.query(OrderProductModel).all()
             obj["has_all_available_products"] = []
+            obj["percentage_availability_of_products"] = []
             for result in order_results:
                 qty = result.getQty()
                 wh_qty = WarehouseProductController.getWareHouseProductQty(warehouse_id, result.product_id)
-                obj["inventory_product_"+str(result.product_id)+"_qty"] = wh_qty
-                obj["product_"+str(result.product_id)+"_qty"] = qty
+                # obj["inventory_product_"+str(result.product_id)+"_qty"] = wh_qty
+                # obj["product_"+str(result.product_id)+"_qty"] = qty
                 obj["has_all_available_products"].append(True if qty == wh_qty else False)
-            obj["has_all_available_products"] = all(obj["has_all_available_products"])
+                obj["percentage_availability_of_products"].append((qty/wh_qty) if qty <= wh_qty else 0)
+            obj["percentage_availability_of_products"] = reduce(
+                lambda a, b: a + b, obj["percentage_availability_of_products"]
+            ) / len(obj["percentage_availability_of_products"])
+            obj["has_all_available_products"] = 1 if all(obj["has_all_available_products"]) == True else 0
             obj["warehouse_location_x"] = warehouse_location["wh_location_x"]
             obj["warehouse_location_y"] = warehouse_location["wh_location_y"]
-            obj["distance_from_warehouse"] = distance(
+            obj["distance_order_from_warehouse"] = distance(
                 {
                     0: obj["warehouse_location_x"],
                     1: obj["warehouse_location_y"]
@@ -45,3 +52,6 @@ def getSVMTable(warehouse_id):
              )
         svmtable.append(obj)
     return svmtable
+
+def polynomialSVM():
+    return False
