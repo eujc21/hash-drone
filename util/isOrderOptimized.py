@@ -18,4 +18,3 @@ def _is_order_optimized_ (in_file):
 
     file['classifier'] = ord_classified
     return file
->>>>>>> 92ee39f3e8c3c8a6ad020b48aaa8073052966839
