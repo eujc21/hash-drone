@@ -1,18 +1,28 @@
 from database import hash_database
 from models import OrderModel, ProductModel, OrderProductModel, WarehouseProductModel
 from controllers import WarehouseProductController, WarehouseController
-from util import distance
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import select, func
 from sqlalchemy.sql import label
+
+# Data Science Functionality
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
+from thundersvm import SVC
+
+# Helper Functions
+from functools import reduce
+from util import distance
+import time
+
+# Sklearn libraries
 from sklearn.model_selection import train_test_split
-from sklearn.svm import SVC
+# from sklearn.svm import SVC
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn import datasets
-from functools import reduce
-import numpy as np
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import cross_val_score
 
 def make_meshgrid(x, y, z, h=.02):
     x_min, x_max  = x.min() - 1, x.max() + 1
@@ -77,66 +87,91 @@ def getSVMTable(warehouse_id):
                 }
              )
             obj["classifier"] = 1 if (
-                obj["distance_order_from_warehouse"] < 300 and obj["percentage_availability_of_products"] > 0.60 and  obj["total_weight_of_order"] < 200
-            ) else 2 if (
-                obj["distance_order_from_warehouse"] <  300 and (obj["percentage_availability_of_products"] < 0.60 or obj["percentage_availability_of_products"] > 0.30) and  obj["total_weight_of_order"] < 200
-            ) else 0
+                obj["distance_order_from_warehouse"] < 300 and obj["percentage_availability_of_products"] > 0.40
+            ) else -1
+            #     obj["distance_order_from_warehouse"] <  300 and (obj["percentage_availability_of_products"] < 0.60 or obj["percentage_availability_of_products"] > 0.30) and  obj["total_weight_of_order"] < 200
+            # ) else 0
         svmtable.append(obj)
     return svmtable
 
-def polynomialSVM():
+def polynomialSVM(whid):
+    # Retrieve Dataset
     dataset = pd.read_csv(
-        './assets/warehouse_1.csv',
+        './assets/warehouse_'+whid+'.csv',
         usecols = [
             'distance_order_from_warehouse',
             'percentage_availability_of_products',
-            'total_weight_of_order',
             'classifier'
         ]
     )
     X = dataset.drop('classifier',axis=1)
     Y = dataset["classifier"]
-    # X = X[np.logical_or(Y==0,Y==1)]
-    # Y = Y[np.logical_or(Y==0,Y==1)]
-    # print(datasets.load_iris().target)
+
+    # Splitting data into train and test
     xTrain, xTest, yTrain, yTest = train_test_split(
         X,
         Y,
         test_size = 0.20,
         random_state=0
     )
-    svcClassifier = SVC(kernel='poly', C=0.1)
+
+    # Feature scaling
+    sc = StandardScaler()
+    xTrain = sc.fit_transform(xTrain)
+    xTest = sc.fit_transform(xTest)
+
+    # Fitting Kernel SVM to the Training set.
+    svcClassifier = SVC(
+        kernel='polynomial',
+        random_state=0,
+        max_mem_size=50000,
+        n_jobs=4,
+        C=0.5
+    )
     svcClassifier.fit(xTrain,yTrain)
+    
+    # Predicting the test results
     polyPred = svcClassifier.predict(xTest)
+    
+    # Confusion Matrix
     print("Confusion Matrix")
     print(confusion_matrix(yTest, polyPred))
     print("\n")
+    
+    # Classification report
     print("Classification Report")
     print(classification_report(yTest, polyPred))
     print("\n")
-    # z = lambda x,y: (-svcClassifier.intercept_[0]-svcClassifier.coef_[0][0]*x -svcClassifier.coef_[0][1]*y) / svcClassifier.coef_[0][2]
-    # tmp = np.linspace(-5,5,30)
-    # x,y = np.meshgrid(tmp,tmp)
-    # fig, ax = plt.subplots()# title for the plots
-    # title = "Decision surface of linear SVC "
-    # # Set-up grid for plotting.
-    # xFeatureNames = list(X)
-    # yFeatureNames = list(set(Y))
-    # X0, X1, X2= X["percentage_availability_of_products"], X["distance_order_from_warehouse"], X["total_weight_of_order"]
-    # xx, yy, zz = make_meshgrid(X0, X1, X2)
-    # plot_contours(ax, svcClassifier.fit(X,Y), xx, yy, zz, cmap=plt.cm.coolwarm, alpha=0.8)
-    # ax.scatter(X0, X1, c=yFeatureNames, cmap=plt.cm.coolwarm, s=20, edgecolors="k")
-    # ax.set_ylabel("{}".format(xFeatureNames))
-    # ax.set_xlabel("{}".format(yFeatureNames))
-    # ax.set_xticks(())
-    # ax.set_yticks(())
-    # ax.set_title(title)
-    # plt.show()
-    # fig = plt.figure()
-    # ax = fig.add_subplot(111, projection='3d')
-    # ax.plot3D(X[Y==0,0], X[Y==0,1], X[Y==0,2],'ob')
-    # ax.plot3D(X[Y==1,0], X[Y==1,1], X[Y==1,2],'sr')
-    # ax.plot_surface(x, y, z(x,y))
-    # ax.view_init(30, 60)
-    # plt.show()
+
+    # Applyinbg k-fold cross validation
+    accuracies = cross_val_score(estimator = svcClassifier, X=xTrain, y=yTrain, cv=10)
+    print(accuracies.mean())
+    print(accuracies.std())
+
+    # Visualising the Test set results
+    from matplotlib.colors import ListedColormap
+    X_set, y_set = xTest, yTest
+    X1, X2 = np.meshgrid(
+        np.arange(start = X_set[:, 0].min() - 1, stop = X_set[:, 0].max() + 1, step = 0.01),
+        np.arange(start = X_set[:, 1].min() - 1, stop = X_set[:, 1].max() + 1, step = 0.01)
+    )
+    plt.contourf(
+        X1,
+        X2,
+        svcClassifier.\
+            predict(np.array([X1.ravel(), X2.ravel()]).T).\
+                reshape(X1.shape),
+        alpha = 0.5,
+        cmap = ListedColormap(('blue', 'black'))
+    )
+    plt.xlim(X1.min(), X1.max())
+    plt.ylim(X2.min(), X2.max())
+    for i, j in enumerate(np.unique(y_set)):
+        plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
+                    c = ListedColormap(('red', 'green'))(i), label = j)
+    plt.title('Kernel SVM (Training Data')
+    plt.xlabel('Distance From Warehouse')
+    plt.ylabel('Percentage of Available Products')
+    plt.legend()
+    plt.savefig('./assets/Polynomial_'+whid+'_'+str(int(time.time()))+'.png')
     return False

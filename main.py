@@ -52,7 +52,7 @@ def createCSV():
     df.fillna(0, inplace=True)
     gfg_csv_data = df.to_csv('./assets/warehouse_'+str(warehouse_id)+'.csv', index = True) 
     print('\nCSV String:\n', gfg_csv_data) 
-    return False
+    return warehouse_id
 
 def trainingForSVM():
     return False
@@ -66,8 +66,8 @@ def main():
     else:
         print("Can not delete the file as it doesn't exists")
     setupDB()
-    createCSV()
-    SVMController.polynomialSVM()
+    whid = createCSV()
+    SVMController.polynomialSVM(whid)
     simulation()
     
 
