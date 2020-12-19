@@ -4,7 +4,7 @@ import pandas as pd
 # warehouse that is present on the map based on the distance and
 # the availability of the products to each order
 
-def _is_order_optimized_ (in_file)
+def _is_order_optimized_ (in_file):
     file = pd.read_csv(in_file)
     pap_class = file['percentage_availability_of_products'].mean()
     dist_class = file['distance_order_from_warehouse'].mean()
@@ -17,5 +17,5 @@ def _is_order_optimized_ (in_file)
         else:
             ord_classified.append(-1)
 
-    file['classifed'] = ord_classified
+    file['classifier'] = ord_classified
     return file
