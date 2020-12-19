@@ -10,6 +10,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from thundersvm import SVC
+import pickle
 
 # Helper Functions
 from functools import reduce
@@ -23,19 +24,6 @@ from sklearn.metrics import classification_report, confusion_matrix
 from sklearn import datasets
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import cross_val_score
-
-def make_meshgrid(x, y, z, h=.02):
-    x_min, x_max  = x.min() - 1, x.max() + 1
-    y_min, y_max = y.min() - 1 ,y.max() + 1
-    z_min, z_max = z.min() - 1 ,z.max() + 1
-    xx, yy, zz = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h), np.arange(z_min, z_max))
-    return xx, yy, zz
-
-def plot_contours(ax, clf, xx, yy, zz, **params):
-    Z = clf.predict(np.c_[xx.ravel(), yy.ravel(), zz.ravel()])
-    Z = Z.reshape(xx.shape)
-    out = ax.contourf(xx, yy, zz, Z, **params)
-    return out  
 
 def getSVMTable(warehouse_id):
     dbms = hash_database.HashDataBase(hash_database.SQLITE, dbname='hash.sqlite')
@@ -129,10 +117,11 @@ def polynomialSVM(whid):
         C=0.5
     )
     svcClassifier.fit(xTrain,yTrain)
-    
+    svc_pickle = './assets/sv_pickle.sav'
+    pickle.dump(svcClassifier, open(svc_pickle, 'wb'))
     # Predicting the test results
     polyPred = svcClassifier.predict(xTest)
-    
+    print(polyPred)
     # Confusion Matrix
     print("Confusion Matrix")
     print(confusion_matrix(yTest, polyPred))
