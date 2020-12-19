@@ -67,6 +67,7 @@ def main():
         print("Can not delete the file as it doesn't exists")
     setupDB()
     createCSV()
+    SVMController.polynomialSVM()
     simulation()
     
 
