@@ -1,27 +1,20 @@
-import os
 import pandas as pd
-import numpy as np
+# The goal of this function is to classify orders relative to each
+# warehouse that is present on the map based on the distance and
+# the availability of the products to each order
 
-# The goal of this function is to take the order distance,
-# order product, warehouse product, and drone weight
-# and determine if the order is optimized for that warehouse
+def _is_order_optimized_ (in_file):
+    file = pd.read_csv(in_file)
+    pap_class = file['percentage_availability_of_products'].mean()
+    dist_class = file['distance_order_from_warehouse'].mean()
 
-def is_order_optimized (ord_dist, ord_x, ord_y, wh_x, wh_y,  wh_prod, ord_prod, drone_weight):
+    ord_classified = []
+    for index, row in file.iterrows():
+        if (row['percentage_availability_of_products'] > pap_class) & \
+                (row['distance_order_from_warehouse'] < dist_class):
+            ord_classified.append(1)
+        else:
+            ord_classified.append(-1)
 
-    # Lets begin with creating a distance threshold parameter for the order.
-    # Just as a percentage or a HPF, using the order's own coords
-    # compared to the warehouse's can help gauge what a good distance
-    # from the order to the warehouse would be. High Distances need to be filtered
-    # as not an optimized order
-
-    learn_fact = 1.5 # Can adjust this for determining a good threshold filter
-
-    dist_use = abs(wh_x-ord_x) if (abs(wh_x-ord_x) >= abs(wh_y-ord_y)) else abs(wh_y-ord_y)
-    dist_check = 1 if (ord_dist < dist_use * learn_fact) else 0
-    dev_op = None
-    if(dist_check == 1 ):
-        dev_op = 1
-    else:
-        dev_op = -1
-
-    return dev_op
+    file['classifier'] = ord_classified
+    return file
