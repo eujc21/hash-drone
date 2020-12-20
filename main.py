@@ -39,8 +39,11 @@ def setupDB():
     session.commit()
 
     
-def trainsvm():
+def createCSV():
     warehouses = WarehouseController.getWarehouses()
+    # warehouse_id= input("Which warehouse would you like to train on , pick 0-9: ")
+
+    # for warehouse_id in warehouses:
     for warehouse_id in warehouses:
         svmTable = SVMController.getSVMTable(warehouse_id)
         group_value = []
@@ -50,6 +53,11 @@ def trainsvm():
         df.fillna(0, inplace=True)
         gfg_csv_data = df.to_csv('./assets/warehouse_'+str(warehouse_id)+'.csv', index = True) 
         print('\nCSV String:\n', gfg_csv_data) 
+        trainingForSVM(warehouse_id)
+    return False
+
+def trainingForSVM(whid):
+    SVMController.polynomialSVM(whid)
     return False
 
 def simulation():
@@ -61,8 +69,8 @@ def main():
     else:
         print("Can not delete the file as it doesn't exists")
     setupDB()
-    trainsvm()
-    simulation()
+    createCSV()
+    # simulation()
     
 
 if __name__ == "__main__": main()
