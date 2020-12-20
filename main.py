@@ -1,50 +1,76 @@
 import os
+from database import hash_database
+from models import ProductModel, OrderModel,OrderProductModel, WarehouseModel, WarehouseProductModel
+from controllers import OrderController, SVMController, WarehouseController, WarehouseProductController
+from sqlalchemy.orm import sessionmaker
+from util.seeder import read_file
 import pandas as pd
-import numpy as np
 
-def read_file(input_file):
-    with open(input_file) as f:
-        num_rows, num_columns, num_drones, max_time, max_cargo = map(
-            int, f.readline().split(" ")
-        )
+def setupDB():
+    num_rows, num_columns, num_drones, max_time, max_cargo, products, wh_list, order_list, order_product, warehouse_products = read_file('./assets/busy_day.in')
+    dbms = hash_database.HashDataBase(hash_database.SQLITE, dbname='hash.sqlite')
+    dbms.create_db_tables()
+    Session = sessionmaker(bind=dbms.db_engine)
+    session = Session()
+    for product in products:
+        session.add(ProductModel(**product))
+    for order in order_list:
+        session.add(OrderModel(**order))
+    for order in order_product:
+        # session.add(order_product_model.OrderModel(**order))
+        order_id = order["order_id"]
+        for key in dict(order["items"]).keys():
+            order["items"][key]
+            session.add(
+                OrderProductModel(
+                    **{
+                        "order_id":order_id,
+                        "product_id": key,
+                        "qty": order["items"][key]
+                    }
+                )
+            )
+    for warehouse in wh_list:
+        session.add(WarehouseModel(**warehouse))
 
-        # products
-        num_products = int(f.readline())
-        product_weights = list(map(int, f.readline().split(" ")))
-        assert num_products == len(product_weights)
-        products = [{"id": i, "weight": w} for i, w in enumerate(product_weights)]
+    for wh_product in warehouse_products:
+        for wh_pr in wh_product:
+            session.add(WarehouseProductModel(**wh_pr))
+    session.commit()
 
-        # # warehouses
-        num_warehouses = int(f.readline())
-        wh_list = []
-        for i in range(num_warehouses):
-            x, y = map(int, f.readline().split(" "))
-            num_products_in_wh = list(map(int, f.readline().split(" ")))
-            assert num_products == len(num_products_in_wh)
-            wh_products = [{p["id"]: n} for p, n in zip(products, num_products_in_wh)]
-            wh = {"id":i, "position":{"x":x,"y":y}, "products": wh_products}
-            wh_list.append(wh)
+    
+def createCSV():
+    warehouses = WarehouseController.getWarehouses()
+    # warehouse_id= input("Which warehouse would you like to train on , pick 0-9: ")
 
-        # order info
-        order_list = []
-        num_orders = int(f.readline())
-        for i in range(num_orders):
-            c = Counter()
-            x, y = map(int, f.readline().split(" "))
-            num_products_in_order = int(f.readline())
-            order_products = list(map(int, f.readline().split(" ")))
-            assert num_products_in_order == len(order_products)
-            order_products = [products[x] for x in order_products]
-            print(order_products)
-            order = {
-                "id":i, "position":{"x":x,"y":y}, "products": order_products, "isDelivered": False
-            }
-            order_list.append(order)
-    # return num_rows, num_columns, num_drones, max_time, max_cargo, wh_list, order_list
-    return num_rows, num_columns, num_drones, max_time, max_cargo, products, wh_list
+    # for warehouse_id in warehouses:
+    for warehouse_id in warehouses:
+        svmTable = SVMController.getSVMTable(warehouse_id)
+        group_value = []
+        for value in svmTable:
+            group_value.append(value)
+        df = pd.DataFrame(group_value)
+        df.fillna(0, inplace=True)
+        gfg_csv_data = df.to_csv('./assets/warehouse_'+str(warehouse_id)+'.csv', index = True) 
+        print('\nCSV String:\n', gfg_csv_data) 
+        trainingForSVM(warehouse_id)
+    return False
 
+def trainingForSVM(whid):
+    SVMController.polynomialSVM(whid)
+    return False
 
-num_rows, num_columns, num_drones, max_time, max_cargo, products, wh_list = read_file('./busy_day.in')
+def simulation():
+    return False
 
-print(wh_list[1]["products"][3])
+def main():
+    if os.path.exists('./hash.sqlite'):
+        os.remove('./hash.sqlite')
+    else:
+        print("Can not delete the file as it doesn't exists")
+    setupDB()
+    createCSV()
+    # simulation()
+    
 
+if __name__ == "__main__": main()

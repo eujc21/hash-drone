@@ -3,25 +3,33 @@ from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
-
-class ProductModel(Base):
-    """Data model example."""
-    __tablename__ = "products"
+class OrderModel(Base):
+    __tablename__ = "orders"
     __table_args__ = {"schema": "main"}
 
     id = Column(
         Integer,
         primary_key=True,
         nullable=False
+    
     )
-    product_id = Column(
-        String(100),
+    dlx = Column(
+        Integer,
         nullable=False
     )
-    product_weight = Column(
-        Float,
+    
+    dly = Column(
+        Integer,
         nullable=False
     )
-
+    
+    isDelivered = Column(
+        Boolean,
+        nullable=False
+    )
+    
     def __repr__(self):
-        return '<Product model {}>'.format(self.id)
+        return '<Order model {}>'.format(self.id)
+
+    def getId(self):
+        return self.id

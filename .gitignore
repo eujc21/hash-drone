@@ -6,13 +6,16 @@
 # Node artifact files
 node_modules/
 dist/
+.vscode/
+code-base/
+.ipynb*
 
 # Compiled Java class files
 *.class
 
 # Compiled Python bytecode
 *.py[cod]
-
+__pycache__
 # Log files
 *.log
 
@@ -47,4 +50,5 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
-
+.bitbucketpass
+*.ipynb
