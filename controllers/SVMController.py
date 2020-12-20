@@ -106,14 +106,14 @@ def polynomialSVM(whid):
 
     # Fitting Kernel SVM to the Training set.
     svcClassifier = SVC(
-        kernel='polynomial',
+        kernel='rbf',
         random_state=0,
         max_mem_size=50000,
-        n_jobs=4,
-        C=0.5
+        n_jobs=8,
+        C=100
     )
     svcClassifier.fit(xTrain,yTrain)
-    svc_pickle = './assets/sv_pickle_'+str(whid)+'.sav'
+    svc_pickle = './assets/sv_pickle_rbf_'+str(whid)+'.sav'
     pickle.dump(svcClassifier, open(svc_pickle, 'wb'))
     # Predicting the test results
     polyPred = svcClassifier.predict(xTest)
@@ -158,6 +158,6 @@ def polynomialSVM(whid):
     plt.xlabel('Distance From Warehouse')
     plt.ylabel('Percentage of Available Products')
     plt.legend()
-    plt.savefig('./assets/Polynomial_'+str(whid)+'_'+str(int(time.time()))+'.png')    
+    plt.savefig('./assets/RBF'+str(whid)+'_'+str(int(time.time()))+'.png')    
     plt.close()
     return False
