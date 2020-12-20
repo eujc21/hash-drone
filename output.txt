@@ -1,2 +1,0 @@
-Tables created
-Which warehouse would you like to train on , pick 0-9: 
