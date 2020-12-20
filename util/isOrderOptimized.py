@@ -4,7 +4,13 @@ import pandas as pd
 # the availability of the products to each order
 
 def _is_order_optimized_ (in_file):
-    file = pd.read_csv(in_file)
+    file = pd.read_csv(
+        in_file,
+        usecols = [
+            'distance_order_from_warehouse',
+            'percentage_availability_of_products',
+        ]
+    )
     pap_class = file['percentage_availability_of_products'].mean()
     dist_class = file['distance_order_from_warehouse'].mean()
 

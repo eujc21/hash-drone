@@ -15,6 +15,7 @@ import pickle
 # Helper Functions
 from functools import reduce
 from util import distance
+from util.isOrderOptimized import _is_order_optimized_
 import time
 
 # Sklearn libraries
@@ -84,13 +85,8 @@ def getSVMTable(warehouse_id):
 
 def polynomialSVM(whid):
     # Retrieve Dataset
-    dataset = pd.read_csv(
-        './assets/warehouse_'+whid+'.csv',
-        usecols = [
-            'distance_order_from_warehouse',
-            'percentage_availability_of_products',
-            'classifier'
-        ]
+    dataset = _is_order_optimized_(
+        './assets/warehouse_'+str(whid)+'.csv',
     )
     X = dataset.drop('classifier',axis=1)
     Y = dataset["classifier"]
@@ -117,7 +113,7 @@ def polynomialSVM(whid):
         C=0.5
     )
     svcClassifier.fit(xTrain,yTrain)
-    svc_pickle = './assets/sv_pickle.sav'
+    svc_pickle = './assets/sv_pickle_'+str(whid)+'.sav'
     pickle.dump(svcClassifier, open(svc_pickle, 'wb'))
     # Predicting the test results
     polyPred = svcClassifier.predict(xTest)
@@ -158,9 +154,10 @@ def polynomialSVM(whid):
     for i, j in enumerate(np.unique(y_set)):
         plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1],
                     c = ListedColormap(('red', 'green'))(i), label = j)
-    plt.title('Kernel SVM (Training Data')
+    plt.title('Kernel SVM (Training Data) Warehouse: ' + str(whid))
     plt.xlabel('Distance From Warehouse')
     plt.ylabel('Percentage of Available Products')
     plt.legend()
-    plt.savefig('./assets/Polynomial_'+whid+'_'+str(int(time.time()))+'.png')
+    plt.savefig('./assets/Polynomial_'+str(whid)+'_'+str(int(time.time()))+'.png')    
+    plt.close()
     return False

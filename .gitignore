@@ -18,7 +18,6 @@ code-base/
 __pycache__
 # Log files
 *.log
-*.csv
 
 # Package files
 *.jar
