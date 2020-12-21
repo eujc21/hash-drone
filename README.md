@@ -79,6 +79,7 @@ python main.py
 
 11 directories, 78 files
 ```
+[Pre Processing](https://www.kaggle.com/srii96/hashcode-problem-understanding-pre-process)
 
 [Greedy Solution](https://www.kaggle.com/egrehbbt/greedy-solution-post-processing)
 
@@ -105,3 +106,5 @@ python main.py
 [Intro to Python Database Management with SQLAlchemy](https://hackersandslackers.com/python-database-management-sqlalchemy)
 
 [Design Patterns - MVC Pattern](https://www.tutorialspoint.com/design_pattern/mvc_pattern.htm)
+
+[Thunder SVM](https://github.com/Xtra-Computing/thundersvm)

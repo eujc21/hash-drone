@@ -7,7 +7,7 @@ Base = declarative_base()
 class ProductModel(Base):   # This class models the products provided
     """Data model example."""
     __tablename__ = "products"  # Database table name
-    __table_args__ = {"schema": "main"}
+    __table_args__ = {"schema": "main"} # Argument calls (made from input file)
 
     id = Column(    # id of the product model and datatype
         Integer,

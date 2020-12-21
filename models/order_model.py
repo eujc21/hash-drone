@@ -5,7 +5,7 @@ Base = declarative_base()
 
 class OrderModel(Base): # This class models the orders provided
     __tablename__ = "orders"    # Database table name
-    __table_args__ = {"schema": "main"}
+    __table_args__ = {"schema": "main"} # Argument calls (made from input file)
 
     id = Column(    # id with data type of model
         Integer,

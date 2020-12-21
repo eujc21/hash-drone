@@ -138,7 +138,8 @@ def polynomialSVM(whid):
     # Predicting the test results
     polyPred = svcClassifier.predict(xTest)
     print(polyPred)
-    # Confusion Matrix
+
+    # Confusion Matrix Print: SVM Classifier polyTest against the Test Labeled Data yTest
     print("Confusion Matrix")
     print(confusion_matrix(yTest, polyPred))
     print("\n")

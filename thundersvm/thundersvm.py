@@ -1,21 +1,25 @@
 from sklearn.base import BaseEstimator
 from sklearn.base import RegressorMixin, ClassifierMixin
-
+# Pull Bases
 ThundersvmBase = BaseEstimator
 ThundersvmRegressorBase = RegressorMixin
 ThundersvmClassifierBase = ClassifierMixin
-
+# Import for numpy
 import numpy as np
 import scipy.sparse as sp
-
+# Imports from sklearn
 from sklearn.utils import check_X_y, column_or_1d, check_array
 from sklearn.utils.validation import _num_samples
-
+# Imports for system and system pathing
 from ctypes import *
 from os import path, curdir
 from sys import platform
 dirname = path.dirname(path.abspath(__file__))
 
+# The subsequent files for ThunderSVM will be accredited under the readme and report for they were referenced from
+# github as a source for understanding more of SVM models (especially for large databases with multiple features)
+
+# Environment Check, which OS are you on
 if platform == "linux" or platform == "linux2":
     shared_library_name = "libthundersvm.so"
 elif platform == "win32":
